@@ -23,5 +23,8 @@ namespace Georza_Daniel_Lab2.Models
 
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
+
+        [Display(Name = "Categories")]
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }
