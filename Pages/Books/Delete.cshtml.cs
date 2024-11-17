@@ -23,6 +23,8 @@ namespace Georza_Daniel_Lab2.Pages.Books
         [BindProperty]
         public Book Book { get; set; } = default!;
 
+        public IEnumerable<Category> Categories { get; set; } = default!;
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -31,10 +33,11 @@ namespace Georza_Daniel_Lab2.Pages.Books
             }
 
             var book = await _context.Book
-                .Include(b => b.Publisher)
-                .Include(b => b.Author)
-                .FirstOrDefaultAsync(m => m.ID == id);
-
+                 .Include(b => b.Publisher)
+                 .Include(b => b.Author)
+                 .Include(b => b.BookCategories)
+                 .ThenInclude(b => b.Category)
+                 .FirstOrDefaultAsync(m => m.ID == id);
             if (book == null)
             {
                 return NotFound();
@@ -42,6 +45,7 @@ namespace Georza_Daniel_Lab2.Pages.Books
             else
             {
                 Book = book;
+                Categories = book.BookCategories.Select(s => s.Category);
             }
             return Page();
         }
