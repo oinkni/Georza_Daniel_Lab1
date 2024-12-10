@@ -51,8 +51,7 @@ namespace Georza_Daniel_Lab2.Pages.Books
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int? id, string[]
-selectedCategories)
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedCategories)
         {
             if (id == null)
             {

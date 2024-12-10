@@ -14,6 +14,8 @@ namespace Georza_Daniel_Lab2.Pages.Borrowings
     {
         private readonly Georza_Daniel_Lab2.Data.Georza_Daniel_Lab2Context _context;
 
+        public String BookFullName { get; set; } = default!;
+
         public DetailsModel(Georza_Daniel_Lab2.Data.Georza_Daniel_Lab2Context context)
         {
             _context = context;
@@ -28,7 +30,11 @@ namespace Georza_Daniel_Lab2.Pages.Borrowings
                 return NotFound();
             }
 
-            var borrowing = await _context.Borrowing.FirstOrDefaultAsync(m => m.ID == id);
+            var borrowing = await _context.Borrowing
+                 .Include(b => b.Member)
+                 .Include(b => b.Book)
+                    .ThenInclude(b => b.Author)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (borrowing == null)
             {
                 return NotFound();
@@ -36,6 +42,8 @@ namespace Georza_Daniel_Lab2.Pages.Borrowings
             else
             {
                 Borrowing = borrowing;
+                BookFullName = Borrowing.Book.Title + " - " +
+                               Borrowing.Book.Author.FullName;
             }
             return Page();
         }
