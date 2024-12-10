@@ -9,6 +9,8 @@ namespace Georza_Daniel_Lab2.Models
         public int ID { get; set; }
 
         [Display(Name = "Book Title")]
+        [Required]
+        [StringLength(150, MinimumLength = 3)]
         public string Title { get; set; }
 
         public int? AuthorID { get; set; }

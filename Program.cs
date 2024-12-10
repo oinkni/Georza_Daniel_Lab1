@@ -17,6 +17,8 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AllowAnonymousToPage("/Books/Index");
     options.Conventions.AllowAnonymousToPage("/Books/Details");
     options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Categories", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Publishers", "AdminPolicy");
 });
 
 builder.Services.AddDbContext<Georza_Daniel_Lab2Context>(options =>
